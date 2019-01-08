@@ -3,6 +3,7 @@ package com.hackerrank.github.controller;
 import com.hackerrank.github.model.Event;
 import com.hackerrank.github.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class EventController {
     private EventService eventService;
 
     @PostMapping
+    @ResponseStatus( HttpStatus.CREATED)
     public void save(@RequestBody Event event) {
         eventService.save(event);
     }
