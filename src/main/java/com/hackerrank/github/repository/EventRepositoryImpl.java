@@ -4,6 +4,7 @@ import com.hackerrank.github.dto.EventDto;
 import com.hackerrank.github.model.Event;
 import static com.hackerrank.github.model.QEvent.event;
 import static com.hackerrank.github.model.QActor.actor;
+import static com.hackerrank.github.model.QRepo.repo;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -17,15 +18,12 @@ public class EventRepositoryImpl {
     @Autowired
     EntityManager entityManager;
 
-    public List<EventDto> getByActorId(Long actorId) {
+    public List<Event> getAllByActorId(Long actorId) {
         return new JPAQueryFactory(entityManager)
-            .select(Projections.constructor(
-                EventDto.class,
-                event.id,
-                event.type
-            ))
+            .select(event)
             .from(event)
-            .join(event.actor, actor)
+            .join(event.actor, actor).fetchJoin()
+            .join(event.repo, repo).fetchJoin()
             .where(actor.id.eq(actorId))
             .fetch();
     }

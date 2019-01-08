@@ -20,9 +20,6 @@ public class Repo {
     @Column(name = "URL")
     private String url;
 
-    @OneToMany(mappedBy="repo", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Event> listaCampanhasEleitor;
-
     public Repo() {
     }
 

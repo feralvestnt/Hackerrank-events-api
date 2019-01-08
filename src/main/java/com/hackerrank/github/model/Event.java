@@ -18,13 +18,11 @@ public class Event {
     @Column(name = "TYPE")
     private String type;
 
-    @ManyToOne(fetch = FetchType.LAZY,
-            cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FK_ACTOR", nullable = false, foreignKey = @ForeignKey(name = "FK_ACTOR_EVENT"))
     private Actor actor;
 
-    @ManyToOne(fetch = FetchType.LAZY,
-            cascade = { CascadeType.ALL })
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FK_REPO", nullable = false, foreignKey = @ForeignKey(name = "FK_REPO_EVENT"))
     private Repo repo;
 
@@ -40,4 +38,5 @@ public class Event {
         this.repo = repo;
         this.createdAt = createdAt;
     }
+
 }

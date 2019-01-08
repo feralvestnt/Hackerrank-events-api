@@ -3,8 +3,12 @@ package com.hackerrank.github.service;
 
 import com.hackerrank.github.comum.validation.ValidationException;
 import com.hackerrank.github.dto.EventDto;
+import com.hackerrank.github.model.Actor;
 import com.hackerrank.github.model.Event;
+import com.hackerrank.github.model.Repo;
+import com.hackerrank.github.repository.ActorRepository;
 import com.hackerrank.github.repository.EventRepository;
+import com.hackerrank.github.repository.RepoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +24,12 @@ public class EventService {
     private EventRepository eventRepository;
 
     @Autowired
+    private ActorRepository actorRepository;
+
+    @Autowired
+    private RepoRepository repoRepository;
+
+    @Autowired
     private EntityManager entityManager;
 
     public void deleteAll() {
@@ -28,6 +38,13 @@ public class EventService {
 
     public void save(Event event) {
         validateEvent(event);
+
+        Actor actor = event.getActor();
+        actorRepository.save(actor);
+
+        Repo repo = event.getRepo();
+        repoRepository.save(repo);
+
         eventRepository.save(event);
     }
 
@@ -43,8 +60,8 @@ public class EventService {
         return (List<Event>) eventRepository.findAll();
     }
 
-    public List<EventDto> getByActor(Long actorId) {
-        List<EventDto> events = eventRepository.getByActorId(actorId);
-        return events;
+    @Transactional
+    public List<Event> getByActor(Long actorId) {
+        return eventRepository.getAllByActorId(actorId);
     }
 }

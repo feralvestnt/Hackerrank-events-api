@@ -21,9 +21,6 @@ public class Actor {
     @Column(name = "AVATAR")
     private String avatar;
 
-    @OneToMany(mappedBy="actor", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Event> listaCampanhasEleitor;
-
     public Actor() {
     }
 
