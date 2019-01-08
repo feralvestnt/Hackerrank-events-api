@@ -26,6 +26,7 @@ public class Event {
     @JoinColumn(name = "FK_REPO", nullable = false, foreignKey = @ForeignKey(name = "FK_REPO_EVENT"))
     private Repo repo;
 
+    @Column(name = "created_at")
     private Timestamp createdAt;
 
     public Event() {
