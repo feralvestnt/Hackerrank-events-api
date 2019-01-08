@@ -7,12 +7,10 @@ import java.util.List;
 
 @Data
 @Entity
-@SequenceGenerator(name="REPO_ID_SEQ", sequenceName="REPO_ID_SEQ", allocationSize = 1)
 @Table(name = "REPO")
 public class Repo {
 
     @Id
-    @GeneratedValue(generator = "REPO_ID_SEQ", strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private Long id;
 
@@ -22,7 +20,7 @@ public class Repo {
     @Column(name = "URL")
     private String url;
 
-    @OneToMany(mappedBy="repo", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="repo", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     private List<Event> listaCampanhasEleitor;
 
     public Repo() {

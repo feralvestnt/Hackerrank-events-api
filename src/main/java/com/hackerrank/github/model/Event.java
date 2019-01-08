@@ -8,12 +8,10 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@SequenceGenerator(name="EVENT_ID_SEQ", sequenceName="EVENT_ID_SEQ", allocationSize = 1)
 @Table(name = "EVENT")
 public class Event {
 
     @Id
-    @GeneratedValue(generator = "EVENT_ID_SEQ", strategy = GenerationType.SEQUENCE)
     @Column(name = "ID")
     private Long id;
 
@@ -25,7 +23,7 @@ public class Event {
     @JoinColumn(name = "FK_ACTOR", nullable = false, foreignKey = @ForeignKey(name = "FK_ACTOR_EVENT"))
     private Actor actor;
 
-    @ManyToOne(fetch = FetchType.EAGER,
+    @ManyToOne(fetch = FetchType.LAZY,
             cascade = { CascadeType.ALL })
     @JoinColumn(name = "FK_REPO", nullable = false, foreignKey = @ForeignKey(name = "FK_REPO_EVENT"))
     private Repo repo;

@@ -1,5 +1,6 @@
 package com.hackerrank.github.controller;
 
+import com.hackerrank.github.dto.EventDto;
 import com.hackerrank.github.model.Event;
 import com.hackerrank.github.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class EventController {
     }
 
     @RequestMapping(value = "/actors/{actorId}", method = RequestMethod.GET)
-    public List<Event> getByActor(@PathVariable Long actorId) {
+    public List<EventDto> getByActor(@PathVariable Long actorId) {
         return eventService.getByActor(actorId);
     }
 }

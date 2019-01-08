@@ -1,4 +1,7 @@
 package com.hackerrank.github.repository;
 
-public interface RepoRepository {
+import com.hackerrank.github.model.Event;
+import org.springframework.data.repository.CrudRepository;
+
+public interface RepoRepository extends CrudRepository<Event, Long> {
 }
