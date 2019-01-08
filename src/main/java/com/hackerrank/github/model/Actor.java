@@ -18,8 +18,8 @@ public class Actor {
     @Column(name = "LOGIN")
     private String login;
 
-    @Column(name = "AVATAR")
-    private String avatar;
+    @Column(name = "AVATAR_URL")
+    private String avatar_url;
 
     public Actor() {
     }
@@ -27,7 +27,7 @@ public class Actor {
     public Actor(Long id, String login, String avatar) {
         this.id = id;
         this.login = login;
-        this.avatar = avatar;
+        this.avatar_url = avatar;
     }
 
 }
