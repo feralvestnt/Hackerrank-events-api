@@ -3,6 +3,7 @@ package com.hackerrank.github.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -19,6 +20,9 @@ public class Repo {
 
     @Column(name = "URL")
     private String url;
+
+    @Column(name = "created_at")
+    private LocalDateTime created_at;
 
     public Repo() {
     }
