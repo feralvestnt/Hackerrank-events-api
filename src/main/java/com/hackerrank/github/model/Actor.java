@@ -1,9 +1,30 @@
 package com.hackerrank.github.model;
 
+import lombok.Data;
+import org.hibernate.annotations.Cascade;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Data
+@Entity
+@SequenceGenerator(name="ACTOR_ID_SEQ", sequenceName="ACTOR_ID_SEQ", allocationSize = 1)
+@Table(name = "ACTOR")
 public class Actor {
+
+    @Id
+    @GeneratedValue(generator = "ACTOR_ID_SEQ", strategy = GenerationType.SEQUENCE)
+    @Column(name = "ID")
     private Long id;
+
+    @Column(name = "LOGIN")
     private String login;
+
+    @Column(name = "AVATAR")
     private String avatar;
+
+    @OneToMany(mappedBy="actor", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    private List<Event> listaCampanhasEleitor;
 
     public Actor() {
     }
@@ -13,28 +34,5 @@ public class Actor {
         this.login = login;
         this.avatar = avatar;
     }
-    
-    public Long getId() {
-        return id;
-    }
-    
-    public void setId(Long id) {
-        this.id = id;
-    }
-    
-    public String getLogin() {
-        return login;
-    }
-    
-    public void setLogin(String login) {
-        this.login = login;
-    }
-    
-    public String getAvatar() {
-        return avatar;
-    }
-    
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
+
 }

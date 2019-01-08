@@ -1,12 +1,35 @@
 package com.hackerrank.github.model;
 
+import lombok.Data;
+import org.hibernate.annotations.Cascade;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Data
+@Entity
+@SequenceGenerator(name="EVENT_ID_SEQ", sequenceName="EVENT_ID_SEQ", allocationSize = 1)
+@Table(name = "EVENT")
 public class Event {
+
+    @Id
+    @GeneratedValue(generator = "EVENT_ID_SEQ", strategy = GenerationType.SEQUENCE)
+    @Column(name = "ID")
     private Long id;
+
+    @Column(name = "TYPE")
     private String type;
+
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = { CascadeType.ALL })
+    @JoinColumn(name = "FK_ACTOR", nullable = false, foreignKey = @ForeignKey(name = "FK_ACTOR_EVENT"))
     private Actor actor;
+
+    @ManyToOne(fetch = FetchType.EAGER,
+            cascade = { CascadeType.ALL })
+    @JoinColumn(name = "FK_REPO", nullable = false, foreignKey = @ForeignKey(name = "FK_REPO_EVENT"))
     private Repo repo;
+
     private Timestamp createdAt;
 
     public Event() {
@@ -17,46 +40,6 @@ public class Event {
         this.type = type;
         this.actor = actor;
         this.repo = repo;
-        this.createdAt = createdAt;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Actor getActor() {
-        return actor;
-    }
-
-    public void setActor(Actor actor) {
-        this.actor = actor;
-    }
-
-    public Repo getRepo() {
-        return repo;
-    }
-
-    public void setRepo(Repo repo) {
-        this.repo = repo;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
 }
