@@ -37,7 +37,7 @@ public class EventService {
         return (List<Event>) eventRepository.findAll();
     }
 
-    public List<Event> getByActor(Integer actorId) {
+    public List<Event> getByActor(Long actorId) {
         return eventRepository.getByActorId(actorId);
     }
 }

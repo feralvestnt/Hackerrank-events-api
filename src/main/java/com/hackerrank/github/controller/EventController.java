@@ -26,8 +26,8 @@ public class EventController {
         return eventService.getAll();
     }
 
-    @RequestMapping(value = "actors/{actorId}", method = RequestMethod.GET)
-    public List<Event> getByActor(Integer actorId) {
+    @RequestMapping(value = "/actors/{actorId}", method = RequestMethod.GET)
+    public List<Event> getByActor(@PathVariable Long actorId) {
         return eventService.getByActor(actorId);
     }
 }

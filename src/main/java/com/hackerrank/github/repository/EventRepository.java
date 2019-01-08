@@ -9,5 +9,5 @@ import java.util.List;
 public interface EventRepository extends CrudRepository<Event, Long> {
 
     @Query("select e from Event e where e.actor.id = ?1")
-    List<Event> getByActorId(Integer actorId);
+    List<Event> getByActorId(Long actorId);
 }
