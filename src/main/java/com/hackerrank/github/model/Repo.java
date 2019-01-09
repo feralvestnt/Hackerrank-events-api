@@ -2,10 +2,10 @@ package com.hackerrank.github.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
 @Entity
@@ -21,9 +21,6 @@ public class Repo {
 
     @Column(name = "URL")
     private String url;
-
-    @Column(name = "created_at")
-    private Timestamp created_at;
 
     public Repo() {
     }

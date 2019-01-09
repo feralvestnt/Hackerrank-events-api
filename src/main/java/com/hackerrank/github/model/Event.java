@@ -1,10 +1,12 @@
 package com.hackerrank.github.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.hibernate.annotations.Cascade;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+
 
 @Data
 @Entity
@@ -26,18 +28,20 @@ public class Event {
     @JoinColumn(name = "FK_REPO", nullable = false, foreignKey = @ForeignKey(name = "FK_REPO_EVENT"))
     private Repo repo;
 
-    @Column(name = "created_at")
-    private Timestamp createdAt;
+    @Column(name = "CREATED_AT")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    @JsonFormat(pattern = "YYYY-MM-dd HH:mm")
+    private Timestamp created_at;
 
     public Event() {
     }
 
-    public Event(Long id, String type, Actor actor, Repo repo, Timestamp createdAt) {
+    public Event(Long id, String type, Actor actor, Repo repo, Timestamp created_at) {
         this.id = id;
         this.type = type;
         this.actor = actor;
         this.repo = repo;
-        this.createdAt = createdAt;
+        this.created_at = created_at;
     }
 
 }

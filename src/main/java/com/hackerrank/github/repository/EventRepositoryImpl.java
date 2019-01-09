@@ -1,16 +1,15 @@
 package com.hackerrank.github.repository;
 
-import com.hackerrank.github.dto.EventDto;
 import com.hackerrank.github.model.Event;
-import static com.hackerrank.github.model.QEvent.event;
-import static com.hackerrank.github.model.QActor.actor;
-import static com.hackerrank.github.model.QRepo.repo;
-
-import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.EntityManager;
 import java.util.List;
+
+import static com.hackerrank.github.model.QActor.actor;
+import static com.hackerrank.github.model.QEvent.event;
+import static com.hackerrank.github.model.QRepo.repo;
 
 
 public class EventRepositoryImpl {
