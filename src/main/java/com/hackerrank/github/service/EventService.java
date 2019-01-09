@@ -65,7 +65,8 @@ public class EventService {
     @Transactional
     public List<Event> getByActor(Long actorId) {
         List<Event> events = eventRepository.getAllByActorId(actorId);
-        events.sort(Comparator.comparing(Event::getId));
-        return events;
+        return events.stream()
+                .sorted(Comparator.comparing(Event::getId))
+                .collect(Collectors.toList());
     }
 }
