@@ -30,7 +30,7 @@ public class Event {
 
     @Column(name = "CREATED_AT")
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
-    @JsonFormat(pattern = "YYYY-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp created_at;
 
     public Event() {

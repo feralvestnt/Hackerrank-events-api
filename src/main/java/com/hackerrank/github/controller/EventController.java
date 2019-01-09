@@ -31,4 +31,5 @@ public class EventController {
     public List<Event> getByActor(@PathVariable Long actorId) {
         return eventService.getByActor(actorId);
     }
+
 }

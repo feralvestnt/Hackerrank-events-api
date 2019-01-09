@@ -1,10 +1,11 @@
 package com.hackerrank.github.model;
 
 import lombok.Data;
-import org.hibernate.annotations.Cascade;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
 @Entity
