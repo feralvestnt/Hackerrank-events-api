@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService {
@@ -62,6 +64,8 @@ public class EventService {
 
     @Transactional
     public List<Event> getByActor(Long actorId) {
-        return eventRepository.getAllByActorId(actorId);
+        List<Event> events = eventRepository.getAllByActorId(actorId);
+        events.stream().sorted(Comparator.comparing(Event::getId)).collect(Collectors.toList());
+        return events;
     }
 }
