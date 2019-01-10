@@ -1,6 +1,7 @@
 package com.hackerrank.github.service;
 
 
+import com.hackerrank.github.comum.validation.ValidationException;
 import com.hackerrank.github.model.Actor;
 import com.hackerrank.github.model.Event;
 import com.hackerrank.github.model.Repo;
@@ -50,9 +51,9 @@ public class EventService {
     public void validateEvent(Event event) {
         Optional<Event> eventOptional = eventRepository.findById(event.getId());
 
-        /*if (eventOptional.isPresent()) {
+        if (eventOptional.isPresent()) {
             throw new ValidationException("Event Id Already exists.");
-        }*/
+        }
     }
 
     public List<Event> getAll() {
