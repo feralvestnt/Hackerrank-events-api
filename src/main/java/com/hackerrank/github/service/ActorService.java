@@ -96,8 +96,8 @@ public class ActorService {
     public List<Actor> getListActors(Map<Actor, List<Event>> actorMap) {
         return
             actorMap.entrySet()
-            .stream().map(a -> new Actor(a.getKey().getId(), a.getKey().getLogin(), a.getKey().getAvatar_url(),
-            a.getValue()))
+            .stream().map(a -> Actor.createActorWithEvents(a.getKey().getId(), a.getKey().getLogin(),
+                    a.getKey().getAvatar_url(), a.getValue()))
             .collect(Collectors.toList());
     }
 

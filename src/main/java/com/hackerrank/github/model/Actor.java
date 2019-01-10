@@ -39,18 +39,23 @@ public class Actor {
         this.avatar_url = avatar;
     }
 
-    public Actor(Long id, String login, String avatar, List<Event> events) {
-        this.id = id;
-        this.login = login;
-        this.avatar_url = avatar;
-        this.events = events;
-        this.events.stream().sorted(Comparator.comparing(Event::getCreated_at));
+    public static Actor createActorWithEvents(Long id, String login, String avatar, List<Event> events) {
+        Actor actor = new Actor();
+        actor.setId(id);
+        actor.setLogin(login);
+        actor.setAvatar_url(avatar);
+        events.stream().sorted(Comparator.comparing(Event::getCreated_at));
+        actor.setEvents(events);
+        actor.calculateConsecutiveDates(events);
+        return actor;
+    }
 
+    public void calculateConsecutiveDates(List<Event> events) {
         for (int i = 0 ; i < events.size() ; i++) {
             int j = i + 1;
             if (j < events.size()) {
                 if ((events.get(i).getCreated_at().toLocalDateTime().getDayOfMonth() + 1) ==
-                    events.get(j).getCreated_at().toLocalDateTime().getDayOfMonth()) {
+                        events.get(j).getCreated_at().toLocalDateTime().getDayOfMonth()) {
                     consecutiveDates++;
                 }
             }
