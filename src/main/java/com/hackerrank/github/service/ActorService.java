@@ -1,6 +1,5 @@
 package com.hackerrank.github.service;
 
-import com.hackerrank.github.comum.validation.filter.FilterUtil;
 import com.hackerrank.github.model.Actor;
 import com.hackerrank.github.model.Event;
 import com.hackerrank.github.repository.ActorRepository;
@@ -8,8 +7,6 @@ import com.hackerrank.github.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.AccessDeniedException;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -78,7 +75,6 @@ public class ActorService {
 
         List<Actor> newList =  sorted
                 .stream()
-                .filter(FilterUtil.distinctByKey(Actor::getId))
                 .map(a -> new Actor(a.getId(), a.getLogin(), a.getAvatar_url()))
                 .collect(Collectors.toList());
 
