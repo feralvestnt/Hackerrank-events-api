@@ -22,6 +22,11 @@ public class ActorsController {
         actorService.save(actor);
     }
 
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Actor> getActors() {
+        return actorService.getActors();
+    }
+
     @RequestMapping(value = "/streak", method = RequestMethod.GET)
     public List<Actor> getStreak() {
         return actorService.getStreak();

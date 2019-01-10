@@ -56,16 +56,14 @@ public class EventService {
     }
 
     public List<Event> getAll() {
-        return (List<Event>) eventRepository.findAll();
+        return  eventRepository.getAll();
     }
 
     @Transactional
     public List<Event> getByActor(Long actorId) {
         List<Event> events = eventRepository.getAllByActorId(actorId);
-        List<Event> ord = events.stream()
+        return events.stream()
                 .sorted(Comparator.comparing(Event::getId))
                 .collect(Collectors.toList());
-
-        return ord;
     }
 }

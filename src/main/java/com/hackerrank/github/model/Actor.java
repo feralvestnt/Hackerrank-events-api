@@ -1,11 +1,11 @@
 package com.hackerrank.github.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Comparator;
+import java.util.List;
 
 @Data
 @Entity
@@ -22,6 +22,10 @@ public class Actor {
     @Column(name = "AVATAR_URL")
     private String avatar_url;
 
+    @JsonIgnore
+    @Transient
+    private List<Event> events;
+
     public Actor() {
     }
 
@@ -31,4 +35,11 @@ public class Actor {
         this.avatar_url = avatar;
     }
 
+    public Actor(Long id, String login, String avatar, List<Event> events) {
+        this.id = id;
+        this.login = login;
+        this.avatar_url = avatar;
+        this.events = events;
+        this.events.stream().sorted(Comparator.comparing(Event::getCreated_at));
+    }
 }

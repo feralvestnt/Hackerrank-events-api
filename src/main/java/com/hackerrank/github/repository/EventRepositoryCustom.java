@@ -7,4 +7,6 @@ import java.util.List;
 public interface EventRepositoryCustom {
 
     List<Event> getAllByActorId(Long actorId);
+
+    List<Event> getAll();
 }

@@ -27,4 +27,13 @@ public class EventRepositoryImpl {
             .fetch();
     }
 
+    public List<Event> getAll() {
+        return new JPAQueryFactory(entityManager)
+                .select(event)
+                .from(event)
+                .join(event.actor, actor).fetchJoin()
+                .join(event.repo, repo).fetchJoin()
+                .fetch();
+    }
+
 }
