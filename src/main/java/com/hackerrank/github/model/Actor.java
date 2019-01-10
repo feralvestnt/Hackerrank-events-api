@@ -26,6 +26,10 @@ public class Actor {
     @Transient
     private List<Event> events;
 
+    @JsonIgnore
+    @Transient
+    private int consecutiveDates;
+
     public Actor() {
     }
 
@@ -41,5 +45,15 @@ public class Actor {
         this.avatar_url = avatar;
         this.events = events;
         this.events.stream().sorted(Comparator.comparing(Event::getCreated_at));
+
+        for (int i = 0 ; i < events.size() ; i++) {
+            int j = i + 1;
+            if (j < events.size()) {
+                if ((events.get(i).getCreated_at().toLocalDateTime().getDayOfMonth() + 1) ==
+                    events.get(j).getCreated_at().toLocalDateTime().getDayOfMonth()) {
+                    consecutiveDates++;
+                }
+            }
+        }
     }
 }

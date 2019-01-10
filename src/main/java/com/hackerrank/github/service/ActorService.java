@@ -29,12 +29,59 @@ public class ActorService {
         }
     }
 
-    public List<Actor> getActors() {
-        return getAllActors();
+    public List<Actor> getStreak() {
+        Map<Actor, List<Event>> actorListMap = getMapActorListEvent();
+
+        List<Actor> actors = getListActors(actorListMap);
+
+        Comparator<Actor> comparator =
+                Comparator.comparing(actor -> actor.getConsecutiveDates());
+
+        comparator = getComparingByEventCreatedAt(comparator);
+
+        comparator = getComparingByLogin(comparator);
+
+        List<Actor> sorted = actors.stream().sorted(comparator).collect(Collectors.toList());
+
+        List<Actor> newList =
+                sorted
+                        .stream()
+                        .map(a -> new Actor(a.getId(), a.getLogin(), a.getAvatar_url()))
+                        .collect(Collectors.toList());
+
+        return newList;
     }
 
-    public List<Actor> getStreak() {
-        return getAllActors();
+    public List<Actor> getActors() {
+
+        Map<Actor, List<Event>> actorListMap = getMapActorListEvent();
+
+        List<Actor> actors = getListActors(actorListMap);
+
+        Comparator<Actor> comparator = getComparingByEventSize();
+
+        comparator = getComparingByEventCreatedAt(comparator);
+
+        comparator = getComparingByLogin(comparator);
+
+        List<Actor> sorted = actors.stream().sorted(comparator).collect(Collectors.toList());
+
+        List<Actor> newList =
+                sorted
+                .stream()
+                .map(a -> new Actor(a.getId(), a.getLogin(), a.getAvatar_url()))
+                .collect(Collectors.toList());
+
+        return newList;
+    }
+
+    public Comparator<Actor> getComparingByLogin(Comparator<Actor> comparator) {
+        return comparator.thenComparing(Comparator.comparing(actor -> actor.getLogin())).reversed();
+    }
+
+    public Comparator<Actor> getComparingByEventCreatedAt(Comparator<Actor> comparator) {
+        return comparator.thenComparing(
+                Comparator.comparing(actor -> actor.getEvents().get(actor.getEvents().size()-1).getCreated_at()));
     }
 
     public Map<Actor, List<Event>> getMapActorListEvent() {
@@ -57,28 +104,4 @@ public class ActorService {
     public Comparator<Actor> getComparingByEventSize() {
         return Comparator.comparing(actor -> actor.getEvents().size());
     }
-
-    public List<Actor> getAllActors() {
-
-        Map<Actor, List<Event>> actorListMap = getMapActorListEvent();
-
-        List<Actor> actors = getListActors(actorListMap);
-
-        Comparator<Actor> compEvents = getComparingByEventSize();
-
-        compEvents = compEvents.thenComparing(
-                Comparator.comparing(actor -> actor.getEvents().get(actor.getEvents().size()-1).getCreated_at()));
-
-        compEvents = compEvents.thenComparing(Comparator.comparing(actor -> actor.getLogin())).reversed();
-
-        List<Actor> sorted = actors.stream().sorted(compEvents).collect(Collectors.toList());
-
-        List<Actor> newList =  sorted
-                .stream()
-                .map(a -> new Actor(a.getId(), a.getLogin(), a.getAvatar_url()))
-                .collect(Collectors.toList());
-
-        return newList;
-    }
-
 }
